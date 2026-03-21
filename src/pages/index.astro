@@ -1,0 +1,93 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { characters } from "../data/characters";
+---
+
+<Layout title="Avengers Power Ranking">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Header -->
+    <header class="text-center mb-16">
+      <p class="text-sm tracking-[0.3em] uppercase text-gray-400 mb-3">
+        Den ultimative
+      </p>
+      <h1
+        class="text-5xl md:text-7xl font-black tracking-tight bg-gradient-to-r from-red-500 via-purple-500 to-blue-500 bg-clip-text text-transparent"
+      >
+        Avengers
+      </h1>
+      <h2
+        class="text-3xl md:text-5xl font-black tracking-tight text-white mt-2"
+      >
+        Power Ranking
+      </h2>
+      <div class="flex justify-center gap-2 mt-6">
+        <div class="w-12 h-1 rounded bg-red-500"></div>
+        <div class="w-12 h-1 rounded bg-purple-500"></div>
+        <div class="w-12 h-1 rounded bg-blue-500"></div>
+      </div>
+      <p class="text-gray-400 mt-6 max-w-lg mx-auto">
+        Fra chaos magic til bue og pil — her er MCU's mægtigste helte, rangeret
+        efter ren styrke.
+      </p>
+    </header>
+
+    <!-- Ranking List -->
+    <div class="space-y-6">
+      {
+        characters.map((char) => (
+          <article
+            class="group relative rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-all duration-300 hover:bg-white/[0.05] hover:border-white/10"
+          >
+            <div class="flex items-start gap-6">
+              {/* Rank number */}
+              <div class="shrink-0 flex flex-col items-center">
+                <span
+                  class="text-4xl md:text-5xl font-black"
+                  style={`color: ${char.color}`}
+                >
+                  {String(char.rank).padStart(2, "0")}
+                </span>
+              </div>
+
+              {/* Content */}
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 mb-2">
+                  <h3 class="text-xl md:text-2xl font-bold text-white">
+                    {char.alias}
+                  </h3>
+                  <span class="text-sm text-gray-500">{char.name}</span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                  {char.description}
+                </p>
+
+                {/* Power bar */}
+                <div class="flex items-center gap-3">
+                  <div class="flex-1 h-2 rounded-full bg-white/5 overflow-hidden">
+                    <div
+                      class="h-full rounded-full"
+                      style={`width: ${char.power}%; background: ${char.color}`}
+                    />
+                  </div>
+                  <span
+                    class="text-sm font-mono font-bold shrink-0"
+                    style={`color: ${char.color}`}
+                  >
+                    {char.power}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-16 py-8 border-t border-white/5">
+      <p class="text-gray-600 text-sm">
+        Baseret på MCU-feats. Alle rettigheder til Marvel/Disney.
+      </p>
+    </footer>
+  </div>
+</Layout>
