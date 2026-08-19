@@ -1,43 +1,68 @@
-# Astro Starter Kit: Minimal
+# Avengers Power Ranking
+
+A small, static, Danish-language fan page that ranks Marvel Cinematic Universe
+heroes by raw power, with a short blurb for each. Built with
+[Astro](https://astro.build) and Tailwind CSS 4 and served as plain HTML.
+
+> Dansk: En lille statisk fanside der rangerer MCU's Avengers efter ren styrke.
+> Indholdet (beskrivelserne) er på dansk.
+
+## Status
+
+Experimental hobby project, feature-complete for what it is, and only
+maintained occasionally. Expect no releases, changelog or support.
+
+## How it works
+
+- `src/data/characters.ts` holds the ranking: name, alias, power score (1–100),
+  a Danish description and an accent colour. Edit this file to change the list.
+- `src/pages/index.astro` renders the list; `src/layouts/Layout.astro` and
+  `src/styles/global.css` hold the layout and Tailwind setup.
+- `npm run build` produces a fully static site in `dist/`. The `Dockerfile`
+  wraps that output in an `nginx:alpine` image.
+
+## Setup
+
+Requires Node.js 22.12 or newer.
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # static output in dist/
+npm run preview   # serve the build locally
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Container build and run:
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+docker build -t avengers-ranking .
+docker run --rm -p 8080:80 avengers-ranking
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+The workflow in `.github/workflows/ci-cd.yml` deploys `main` to the
+maintainer's own self-hosted runner and is specific to that environment; it is
+not needed to build or run the site.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Data and privacy
 
-Any static assets, like images, can be placed in the `public/` directory.
+The site is fully static and collects no data: no analytics, cookies, forms or
+external requests at runtime. The repository contains no personal data.
 
-## 🧞 Commands
+This is an unofficial fan project. Character names and the Marvel Cinematic
+Universe are trademarks of Marvel / The Walt Disney Company; the descriptions
+and the ranking are the maintainer's own opinion and are not affiliated with or
+endorsed by Marvel.
 
-All commands are run from the root of the project, from a terminal:
+## Third-party material
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+All dependencies are published under permissive licences (Astro and Tailwind
+CSS: MIT). No fonts, images or data sets are vendored; the two favicons in
+`public/` are the Astro starter defaults.
 
-## 👀 Want to learn more?
+## Security
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+See [SECURITY.md](SECURITY.md) for how to report a vulnerability.
+
+## License
+
+[MIT](LICENSE) © 2026 Søren Aabendtsen.
